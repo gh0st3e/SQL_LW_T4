@@ -1,0 +1,33 @@
+CREATE TABLE TR_AUDIT
+(
+	ID int identity,
+	STMT varchar(20) check (STMT in ('INS','DEL','UPD')),
+	TRNAME varchar(50),
+	CC varchar(300)
+)
+
+GO
+DROP TRIGGER TR_TEACHER_DEL;
+GO
+CREATE TRIGGER TR_TEACHER_DEL ON TEACHER after DELETE AS
+BEGIN
+	DECLARE @a1 char(10),
+			@a2 varchar(100),
+			@a3 char(1),
+			@a4 char(20),
+			@in varchar(300);
+	PRINT 'Операция удаления';
+	SET @a1 = (SELECT [TEACHER] FROM DELETED);
+	SET @a2 = (SELECT [TEACHER_NAME] FROM DELETED);
+	SET @a3 = (SELECT [GENDER] FROM DELETED);
+	SET @a4 = (SELECT [PULPIT] FROM DELETED);
+	SET @in = @a1+' '+@a2+' '+@a3+' '+@a4;
+	INSERT INTO TR_AUDIT(STMT,TRNAME,CC) VALUES ('DEL','TR_TEACHER_DEL',@in);
+	RETURN;
+END
+
+GO
+DELETE FROM TEACHER WHERE TEACHER_NAME='Леонов Денис Игоревич'
+
+
+SELECT * FROM TR_AUDIT

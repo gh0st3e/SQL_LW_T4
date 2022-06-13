@@ -1,0 +1,22 @@
+CREATE TABLE #LAB9_3
+(
+	TID int,
+	CC int identity(1,1),
+	TVARCHAR varchar(100)
+)
+
+set nocount on
+
+DECLARE @i int = 0
+WHILE @i < 10000
+begin
+INSERT #LAB9_3 VALUES(FLOOR(3000*rand()),'putin i love you')
+SET @i = @i +1
+end
+
+SELECT * FROM #LAB9_3
+
+CREATE INDEX #LAB9_3_TID_INDEX ON #LAB9_3(TID) INCLUDE (CC)
+DROP INDEX #LAB9_3_TID_INDEX ON #LAB9_3
+
+SELECT CC FROM #LAB9_3 WHERE TID>1500

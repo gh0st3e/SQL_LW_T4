@@ -1,0 +1,33 @@
+CREATE TABLE TR_AUDIT
+(
+	ID int identity,
+	STMT varchar(20) check (STMT in ('INS','DEL','UPD')),
+	TRNAME varchar(50),
+	CC varchar(300)
+)
+
+GO
+DROP TRIGGER TR_TEACHER_UPD;
+GO
+CREATE TRIGGER TR_TEACHER_UPD ON TEACHER after UPDATE AS
+BEGIN
+	DECLARE @a1 char(10),
+			@a2 varchar(100),
+			@a3 char(1),
+			@a4 char(20),
+			@in varchar(300);
+	PRINT 'Операция обновления';
+	SET @a1 = (SELECT [TEACHER] FROM INSERTED);
+	SET @a2 = (SELECT [TEACHER_NAME] FROM INSERTED);
+	SET @a3 = (SELECT [GENDER] FROM INSERTED);
+	SET @a4 = (SELECT [PULPIT] FROM INSERTED);
+	SET @in = @a1+' '+@a2+' '+@a3+' '+@a4;
+	INSERT INTO TR_AUDIT(STMT,TRNAME,CC) VALUES ('UPD','TR_TEACHER_UPD',@in);
+	RETURN;
+END
+
+GO
+UPDATE TEACHER SET TEACHER='ЛДИ' WHERE TEACHER='ЛЕОДЕНИ'
+
+
+SELECT * FROM TR_AUDIT

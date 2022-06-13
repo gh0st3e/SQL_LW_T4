@@ -1,0 +1,8 @@
+SELECT AUDITORIUM_TYPENAME, max(AUDITORIUM_CAPACITY) [Максимальная вместимость],
+		min(AUDITORIUM_CAPACITY) [Минимальная вместимость],
+		avg(AUDITORIUM_CAPACITY) [Средняя вместимость],
+		sum(AUDITORIUM_CAPACITY) [Всего вмещается],
+		count(AUDITORIUM) [Кол-во аудиторий]
+FROM AUDITORIUM A inner join AUDITORIUM_TYPE AA ON A.AUDITORIUM_TYPE=AA.AUDITORIUM_TYPE
+GROUP BY AA.AUDITORIUM_TYPENAME
+

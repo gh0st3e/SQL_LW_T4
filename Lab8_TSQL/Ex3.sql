@@ -1,0 +1,8 @@
+print 'Число обрататываемых строк ' + convert(varchar,@@ROWCOUNT)
+print 'Version ' + convert(varchar,@@VERSION)
+print 'Системный идентификатор процесса, назначенный сервом текущему подключению: ' + convert(varchar,@@SPID)
+print 'Server name: ' + convert(varchar,@@SERVERNAME)
+print 'Уровень вложенности транзакции ' + convert(varchar,@@TRANCOUNT)
+print 'Проверка результата считывания строк результирующего набора: ' + convert(varchar,@@FETCH_STATUS)
+print 'код последней ошибки ' + convert(varchar,@@ERROR)
+print 'уровень вложенности текущей процедуры ' + convert(varchar,@@NESTLEVEL)

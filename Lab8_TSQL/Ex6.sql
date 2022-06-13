@@ -1,0 +1,10 @@
+DECLARE @FN varchar(2) = 'ИТ'
+SELECT DISTINCT STUDENT.NAME, PROGRESS.NOTE, CASE
+	WHEN PROGRESS.NOTE between 4 and 6 then 'средне'
+	WHEN PROGRESS.NOTE between 6 and 8 then 'хорошо'
+	WHEN PROGRESS.NOTE between 8 and 10 then 'отлично'
+	else 'ne sdal'
+	end
+FROM PROGRESS inner join STUDENT on PROGRESS.IDSTUDENT = STUDENT.IDSTUDENT
+inner join GROUPS ON STUDENT.IDGROUP = GROUPS.IDGROUP inner join FACULTY
+ON GROUPS.FACULTY = @FN

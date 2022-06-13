@@ -1,0 +1,12 @@
+USE UNIVER
+
+SELECT p.SUBJECT, p.NOTE,
+(SELECT COUNT(*) from PROGRESS p2
+WHERE p2.NOTE = p.NOTE and p.SUBJECT=p2.SUBJECT) [Количество студетов]
+
+FROM PROGRESS p
+
+
+
+GROUP BY p.SUBJECT, p.NOTE
+HAVING p.NOTE like 8 or p.NOTE like 9

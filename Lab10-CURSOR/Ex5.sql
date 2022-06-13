@@ -1,0 +1,13 @@
+use UNIVER
+
+DECLARE @tn char(20), @tc real, @tk int
+
+DECLARE ProgCursor CURSOR LOCAL DYNAMIC FOR
+SELECT SUBJECT,IDSTUDENT,NOTE FROM PROGRESS FOR UPDATE;
+
+OPEN ProgCursor;
+FETCH ProgCursor into @tn,@tc,@tk;
+DELETE PROGRESS where CURRENT OF ProgCursor;
+FETCH ProgCursor into @tn,@tc,@tk;
+UPDATE PROGRESS set NOTE = NOTE+1 WHERE CURRENT OF ProgCursor
+CLOSE ProgCursor
